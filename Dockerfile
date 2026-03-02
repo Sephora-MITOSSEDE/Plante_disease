@@ -19,8 +19,8 @@ RUN pip install --no-cache-dir tensorflow h5py pillow numpy
 RUN R -e "install.packages(c('shiny','dplyr','readr','stringr','tibble','htmltools','base64enc','reticulate','tensorflow','keras'), repos='https://cloud.r-project.org')"
 
 # 5) App
-WORKDIR /srv/shiny-server/app
-COPY . /srv/shiny-server/app
+WORKDIR /srv/shiny-server
+COPY . /srv/shiny-server
 
 EXPOSE 3838
 
