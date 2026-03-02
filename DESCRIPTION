@@ -1,0 +1,14 @@
+Type: Shiny
+Title: Plantes Disease App
+Version: 0.1.0
+Imports:
+    shiny,
+    readr,
+    dplyr,
+    stringr,
+    tibble,
+    keras,
+    tensorflow,
+    base64enc,
+    htmltools
+    
