@@ -19,12 +19,15 @@ RUN pip install --no-cache-dir tensorflow h5py pillow numpy
 RUN R -e "install.packages(c('shiny','dplyr','readr','stringr','tibble','htmltools','base64enc','reticulate','tensorflow','keras'), repos='https://cloud.r-project.org')"
 
 # 5) App
-WORKDIR /srv/shiny-server
-COPY . /srv/shiny-server
+
+WORKDIR /app
+COPY . /app
 
 EXPOSE 3838
+
 
 # 6) Ensure reticulate uses our venv python
 ENV RETICULATE_PYTHON="/opt/venv/bin/python"
 
-CMD ["/usr/bin/shiny-server"]
+
+CMD ["R", "-e", "shiny::runApp('.', host='0.0.0.0', port=3838)"]
