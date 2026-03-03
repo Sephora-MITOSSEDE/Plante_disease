@@ -40,6 +40,19 @@ library(sf)
 library(stringi)
 library(base64enc)
 
+
+# --- DÉFINITION DES FICHIERS DE DONNÉES ---
+USER_FILE    <- "utilisateurs.rds"
+HIST_FILE    <- "historique_scans.rds"
+ACCUEIL_FILE <- "accueil_history.rds"
+
+# Chargement sécurisé des utilisateurs
+users_db <- if(file.exists(USER_FILE)) {
+  readRDS(USER_FILE)
+} else {
+  tibble::tibble(user=character(), pw=character())
+}
+
 # ----------------------------
 # 0) DATA (CSV + images train)
 # ----------------------------
