@@ -8,37 +8,28 @@
 # ✅ Flèche retour + titre en haut (page-topbar) partout
 # ------------------------------------------------------------
 library(shiny)
-library(reticulate)
-library(tensorflow)
-
-ensure_h5py <- local({
-  done <- FALSE
-  function() {
-    if (isTRUE(done)) return(invisible(TRUE))
-    reticulate::py_require("h5py")
-    done <<- TRUE
-    invisible(TRUE)
-  }
-})
-
-ensure_h5py()
-model <- keras::load_model_hdf5("www/model_plants.h5")
-
 library(bslib)
 library(bsicons)
 library(shinyjs)
-
 library(readr)
 library(dplyr)
 library(stringr)
 library(tibble)
+library(reticulate)
+library(tensorflow)
+library(keras) 
 
-# AJOUTS (carte + communauté)
-library(tidyr)
-library(leaflet)
-library(sf)
-library(stringi)
-library(base64enc)
+# --- CONFIGURATION PYTHON ---
+reticulate::use_python("/usr/bin/python3", required = TRUE)
+
+# --- CHARGEMENT DU MODÈLE SÉCURISÉ ---
+MODEL_PATH <- "www/model_plants.h5"
+if (!file.exists(MODEL_PATH)) {
+  stop("ERREUR : Le fichier modele .h5 est introuvable dans le dossier www/")
+}
+
+# Charger le modèle après avoir chargé les libs
+model <- keras::load_model_hdf5(MODEL_PATH)
 
 
 # --- DÉFINITION DES FICHIERS DE DONNÉES ---
